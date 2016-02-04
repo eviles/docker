@@ -9,4 +9,9 @@ ENV JAVA_HOME /usr/local/java
 ENV CLASSPATH=./:$JAVA_HOME/lib:$JAVA_HOME/jre/lib/ext
 ENV PATH /usr/local/bin:$JAVA_HOME/bin:$JAVA_HOME/jre/bin:$PATH
 
+RUN echo "JAVA_HOME=/usr/local/java" >> /etc/profile
+RUN echo "CLASSPATH=./:\$JAVA_HOME/lib:\$JAVA_HOME/jre/lib/ext" >> /etc/profile
+RUN echo "PATH=/usr/local/bin:\$JAVA_HOME/bin:\$JAVA_HOME/jre/bin:\$PATH" >> /etc/profile
+RUN echo "export PATH USER LOGNAME MAIL HOSTNAME HISTSIZE INPUTRC JAVA_HOME CLASSPATH" >> /etc/profile
+
 RUN echo $PATH
