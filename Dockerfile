@@ -53,14 +53,15 @@ ENV CATALINA_BASE /usr/local/tomcat
 ENV CLASSPATH $CLASSPATH:$CATALINA_HOME/common/lib
 ENV PATH $PATH:$CATALINA_HOME/bin
 
-RUN echo "CATALINA_HOME=/usr/local/tomcat" >> /etc/profile
-RUN echo "CATALINA_BASE=/usr/local/tomcat" >> /etc/profile
-RUN echo "CLASSPATH=\$CLASSPATH:\$CATALINA_HOME/common/lib" >> /etc/profile
-RUN echo "PATH=\$PATH:\$CATALINA_HOME/bin" >> /etc/profile
+RUN echo "CATALINA_HOME=$CATALINA_HOME" >> /etc/profile
+RUN echo "CATALINA_BASE=$CATALINA_BASE" >> /etc/profile
+RUN echo "CLASSPATH=$CLASSPATH" >> /etc/profile
+RUN echo "PATH=$PATH" >> /etc/profile
 RUN echo "export PATH CLASSPATH CATALINA_HOME CATALINA_BASE" >> /etc/profile
 
 EXPOSE 80
 EXPOSE 8080
 
+CMD ["/env_config.sh"]
 CMD ["/usr/sbin/httpd"]
 CMD ["/usr/local/tomcat/bin/startup.sh"]
