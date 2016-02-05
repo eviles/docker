@@ -13,6 +13,14 @@ ADD workers.properties /etc/httpd/conf.d/workers.properties
 ADD mod_jk.conf /etc/httpd/conf.d/mod_jk.conf
 RUN chmod 755 /usr/lib64/httpd/modules/mod_jk.so
 
+ENV HTTPD_BASE /var/www
+ENV TOMCAT_BASE /usr/local/tomcat/webapps
+
+VOLUME /var/www
+VOLUME /usr/local/tomcat/webapps
+
+RUN sed -i 's/redirectPort="8443"/redirectPort="8443" URIEncoding="UTF-8"/g' /usr/local/tomcat/conf/server.xml
+
 ENV CATALINA_HOME /usr/local/tomcat
 ENV CATALINA_BASE /usr/local/tomcat
 ENV CLASSPATH $CLASSPATH:$CATALINA_HOME/common/lib
