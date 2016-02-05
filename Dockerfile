@@ -18,6 +18,7 @@ RUN chmod 755 /env_config.sh
 
 ENV HTTPD_BASE /var/www
 ENV HTTPD_ROOT /var/www/html
+ENV HTTPD_LINK /eta
 ENV TOMCAT_BASE /usr/local/tomcat/webapps
 
 VOLUME $HTTPD_BASE
