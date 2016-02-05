@@ -65,7 +65,14 @@ RUN echo "export PATH CLASSPATH CATALINA_HOME CATALINA_BASE" >> /etc/profile
 EXPOSE 80
 EXPOSE 8080
 
-ENTRYPOINT ["/env_config.sh"]
+#For custom env on build
+RUN sed -i 's/DocumentRoot "\/var\/www\/html"/DocumentRoot "$HTTPD_ROOT"/g' /etc/httpd/conf/httpd.conf
+RUN sed -i 's/<Directory "\/var\/www">/<Directory "$HTTPD_BASE">/g' /etc/httpd/conf/httpd.conf
+RUN sed -i 's/appBase="webapps"/appBase="$TOMCAT_BASE"/g' /usr/local/tomcat/conf/server.xml
+RUN mkdir -p $HTTPD_BASE
+RUN mkdir -p $HTTPD_ROOT
+RUN mkdir -p $TOMCAT_BASE
+RUN ln -sf $HTTPD_BASE $HTTPD_LINK
 
 CMD ["/usr/sbin/httpd"]
 CMD ["/usr/local/tomcat/bin/startup.sh"]
