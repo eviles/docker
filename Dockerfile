@@ -21,23 +21,23 @@ ENV TOMCAT_BASE /usr/local/tomcat/webapps
 VOLUME $HTTPD_BASE
 VOLUME $TOMCAT_BASE
 
-RUN sed -i '/ServerRoot "\/etc\/httpd"/a \
-ServerTokens OS \
+RUN sed -i '/ServerRoot "\/etc\/httpd"/a\
+ServerTokens OS\
 ServerSignature On' /etc/httpd/conf/httpd.conf
 
 RUN sed -i 's/DirectoryIndex index.html/DirectoryIndex index.html index.htm index.jsp/g' /etc/httpd/conf/httpd.conf
 
 #For some issues
 RUN sed -i 's/EnableSendfile on/#EnableSendfile on/g' /etc/httpd/conf/httpd.conf
-RUN sed -in '/<Directory \/>/,/<\/Directory>/ c<Directory /> \
-    Options FollowSymLinks \
-    AllowOverride None \
+RUN sed -in '/<Directory \/>/,/<\/Directory>/ c<Directory />\
+    Options FollowSymLinks\
+    AllowOverride None\
 </Directory>' /etc/httpd/conf/httpd.conf
-RUN sed -in '/<Directory "\/var\/www">/,/<\/Directory>/ c<Directory "\/var\/www"> \
-   AllowOverride None \
-   Options All -Indexes \
-   Order allow,deny \
-   Allow from all \
+RUN sed -in '/<Directory "\/var\/www">/,/<\/Directory>/ c<Directory "\/var\/www">\
+   AllowOverride None\
+   Options All -Indexes\
+   Order allow,deny\
+   Allow from all\
 </Directory>' /etc/httpd/conf/httpd.conf
 
 #CGI issues
