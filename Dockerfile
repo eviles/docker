@@ -16,4 +16,4 @@ EXPOSE 80
 
 RUN sed -i '/^#ServerName/cServerName localhost' /etc/httpd/conf/httpd.conf
 
-CMD ["/usr/sbin/httpd"]
+CMD ["/usr/sbin/httpd","-D","FOREGROUND"]
