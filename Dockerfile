@@ -16,6 +16,7 @@ EXPOSE 80
 
 RUN sed -i '/^#ServerName/cServerName localhost' /etc/httpd/conf/httpd.conf
 
-CMD ["/usr/bin/sshd","-D"]
-CMD ["/usr/local/tomcat/bin/catalina.sh","run"]
-CMD ["/usr/sbin/httpd","-D","FOREGROUND"]
+ADD run.sh /run.sh
+RUN chmod 755 /run.sh
+
+CMD ["run.sh"]
