@@ -14,11 +14,37 @@ ADD mod_jk.conf /etc/httpd/conf.d/mod_jk.conf
 RUN chmod 755 /usr/lib64/httpd/modules/mod_jk.so
 
 ENV HTTPD_BASE /var/www
+ENV HTTPD_ROOT /var/www/html
 ENV TOMCAT_BASE /usr/local/tomcat/webapps
 
-VOLUME /var/www
-VOLUME /usr/local/tomcat/webapps
+VOLUME $HTTPD_BASE
+VOLUME $TOMCAT_BASE
 
+RUN sed -i '/ServerRoot "\/etc\/httpd"/a \
+ServerTokens OS \
+ServerSignature On' /etc/httpd/conf/httpd.conf
+
+RUN sed -i 's/DirectoryIndex index.html/DirectoryIndex index.html index.htm index.jsp/g' /etc/httpd/conf/httpd.conf
+
+#For some issues
+RUN sed -i 's/EnableSendfile on/#EnableSendfile on/g' /etc/httpd/conf/httpd.conf
+RUN sed -in '/<Directory \/>/,/<\/Directory>/ c<Directory /> \
+    Options FollowSymLinks \
+    AllowOverride None \
+</Directory>' /etc/httpd/conf/httpd.conf
+RUN sed -in '/<Directory "\/var\/www">/,/<\/Directory>/ c<Directory "\/var\/www"> \
+   AllowOverride None \
+   Options All -Indexes \
+   Order allow,deny \
+   Allow from all \
+</Directory>' /etc/httpd/conf/httpd.conf
+
+#CGI issues
+RUN sed -i 's/ScriptAlias \/cgi-bin\/ "\/var\/www\/cgi-bin\/"/#ScriptAlias \/cgi-bin\/ "\/var\/www\/cgi-bin\/"/g' /etc/httpd/conf/httpd.conf
+RUN sed -i 's/#AddHandler cgi-script .cgi/AddHandler cgi-script .cgi/g' /etc/httpd/conf/httpd.conf
+RUN sed -in '/<Directory "\/var\/www\/cgi-bin">/,/<\/Directory>/ s/^/\#/g' /etc/httpd/conf/httpd.conf
+
+#Support UTF8
 RUN sed -i 's/redirectPort="8443"/redirectPort="8443" URIEncoding="UTF-8"/g' /usr/local/tomcat/conf/server.xml
 
 ENV CATALINA_HOME /usr/local/tomcat
