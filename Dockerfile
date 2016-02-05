@@ -8,6 +8,10 @@ RUN curl -L --url "http://www.us.apache.org/dist/tomcat/tomcat-8/v8.0.30/bin/apa
 RUN mv /tmp/apache-tomcat-8.0.30 /usr/local
 RUN ln -s /usr/local/apache-tomcat-8.0.30 /usr/local/tomcat
 
+ADD mod_jk.so /usr/lib64/httpd/modules/mod_jk.so
+ADD workers.properties /etc/httpd/conf.d/workers.properties
+ADD mod_jk.conf /etc/httpd/conf.d/mod_jk.conf
+
 ENV CATALINA_HOME /usr/local/tomcat
 ENV CATALINA_BASE /usr/local/tomcat
 ENV CLASSPATH $CLASSPATH:$CATALINA_HOME/common/lib
