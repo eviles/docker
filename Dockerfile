@@ -13,6 +13,8 @@ ADD mod_jk.so /usr/lib64/httpd/modules/mod_jk.so
 ADD workers.properties /etc/httpd/conf.d/workers.properties
 ADD mod_jk.conf /etc/httpd/conf.d/mod_jk.conf
 RUN chmod 755 /usr/lib64/httpd/modules/mod_jk.so
+ADD env_config.sh /env_config.sh
+RUN chmod 755 /env_config.sh
 
 ENV HTTPD_BASE /var/www
 ENV HTTPD_ROOT /var/www/html
