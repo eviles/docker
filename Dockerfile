@@ -14,10 +14,10 @@ ADD workers.properties /etc/httpd/conf.d/workers.properties
 ADD mod_jk.conf /etc/httpd/conf.d/mod_jk.conf
 RUN chmod 755 /usr/lib64/httpd/modules/mod_jk.so
 
-ENV HTTPD_BASE /var/www
-ENV HTTPD_ROOT /var/www/html
-ENV HTTPD_LINK /eta
-ENV TOMCAT_BASE /usr/local/tomcat/webapps
+ARG HTTPD_BASE /var/www
+ARG HTTPD_ROOT /var/www/html
+ARG HTTPD_LINK /eta
+ARG TOMCAT_BASE /usr/local/tomcat/webapps
 
 VOLUME $HTTPD_BASE
 VOLUME $TOMCAT_BASE
