@@ -5,6 +5,8 @@ RUN curl -L --url "http://www.us.apache.org/dist/tomcat/tomcat-8/v8.0.30/bin/apa
 RUN mv /tmp/apache-tomcat-8.0.30 /usr/local
 RUN ln -s /usr/local/apache-tomcat-8.0.30 /usr/local/tomcat
 
+VOLUME /usr/local/tomcat/webapps
+
 #Support UTF8
 RUN sed -i 's/redirectPort="8443"/redirectPort="8443" URIEncoding="UTF-8"/g' /usr/local/tomcat/conf/server.xml
 
