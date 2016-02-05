@@ -7,4 +7,4 @@ sed -i 's/appBase="webapps"/appBase="$TOMCAT_BASE"/g' /usr/local/tomcat/conf/ser
 mkdir -p $HTTPD_BASE
 mkdir -p $HTTPD_ROOT
 mkdir -p $TOMCAT_BASE
-ln -s $HTTPD_BASE $HTTPD_LINK
+ln -sf $HTTPD_BASE $HTTPD_LINK
