@@ -16,6 +16,6 @@ EXPOSE 80
 
 RUN sed -i '/^#ServerName/cServerName localhost' /etc/httpd/conf/httpd.conf
 
-CMD ["/usr/bin/sshd"]
-CMD ["/usr/local/tomcat/bin/catalina.sh","start"]
+CMD ["/usr/bin/sshd","-D"]
+CMD ["/usr/local/tomcat/bin/catalina.sh","run"]
 CMD ["/usr/sbin/httpd","-D","FOREGROUND"]
