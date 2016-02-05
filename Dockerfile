@@ -19,4 +19,4 @@ RUN sed -i '/^#ServerName/cServerName localhost' /etc/httpd/conf/httpd.conf
 ADD run.sh /run.sh
 RUN chmod 755 /run.sh
 
-CMD ["run.sh"]
+CMD ["/run.sh"]
