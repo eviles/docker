@@ -65,6 +65,6 @@ RUN echo "export PATH CLASSPATH CATALINA_HOME CATALINA_BASE" >> /etc/profile
 EXPOSE 80
 EXPOSE 8080
 
-CMD ["/env_config.sh"]
+CMD ["/env_config.sh","$HTTPD_BASE","$HTTPD_LINK","$TOMCAT_BASE"]
 CMD ["/usr/sbin/httpd"]
 CMD ["/usr/local/tomcat/bin/startup.sh"]
