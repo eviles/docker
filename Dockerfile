@@ -15,12 +15,12 @@ ADD mod_jk.conf /etc/httpd/conf.d/mod_jk.conf
 RUN chmod 755 /usr/lib64/httpd/modules/mod_jk.so
 
 ARG HTTPD_BASE
-ARG HTTPD_ROOT
-ARG HTTPD_LINK
-ARG TOMCAT_BASE
 ENV HTTPD_BASE /var/www
+ARG HTTPD_ROOT
 ENV HTTPD_ROOT /var/www/html
+ARG HTTPD_LINK
 ENV HTTPD_LINK /eta
+ARG TOMCAT_BASE
 ENV TOMCAT_BASE /usr/local/tomcat/webapps
 
 VOLUME $HTTPD_BASE
