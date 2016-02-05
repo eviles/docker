@@ -23,4 +23,4 @@ RUN echo "export PATH CLASSPATH CATALINA_HOME CATALINA_BASE" >> /etc/profile
 
 EXPOSE 8080
 
-CMD ["/usr/local/tomcat/bin/startup.sh"]
+CMD ["/usr/local/tomcat/bin/catalina.sh","run"]
