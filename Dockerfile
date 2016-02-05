@@ -14,7 +14,6 @@ RUN sed -i 's/DirectoryIndex index.html/DirectoryIndex index.html index.htm inde
 
 EXPOSE 80
 
-CMD ["sed -i \"/^#ServerName/cServerName `hostname`\" /etc/httpd/conf/httpd.conf"]
-CMD ["sed -i \"/^ServerName/cServerName `hostname`\" /etc/httpd/conf/httpd.conf"]
+RUM sed -i '/^#ServerName/cServerName localhost' /etc/httpd/conf/httpd.conf
 
 CMD ["/usr/sbin/httpd"]
