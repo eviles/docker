@@ -1,14 +1,21 @@
 FROM centos:7
 
-RUN yum -y install openssh openssh-clients openssh-server
-RUN yum clean all
+RUN yum -y install openssh openssh-clients openssh-server python-setuptools;yum clean all;easy_install supervisor
+
+RUN ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa;\
+    ssh-keygen -f /etc/ssh/ssh_host_ecdsa_key -N '' -t ecdsa;\
+    ssh-keygen -A;\
+    sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config;\
+    sed -i 's/session\s*required\s*pam_loginuid.so/session    optional     pam_loginuid.so/g' /etc/pam.d/sshd;
+RUN echo "[supervisord]" > /etc/supervisord.conf && \
+    echo "nodaemon=true" >> /etc/supervisord.conf && \
+    echo "" >> /etc/supervisord.conf && \
+    echo "[program:sshd]" >> /etc/supervisord.conf && \
+    echo "command=/usr/sbin/sshd -D" >> /etc/supervisord.conf
 
 EXPOSE 22
 
-RUN ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa
-RUN ssh-keygen -f /etc/ssh/ssh_host_ecdsa_key -N '' -t ecdsa
-RUN ssh-keygen -A
-RUN echo "root:root" | chpasswd
-RUN sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config
-RUN sed -i 's/session\s*required\s*pam_loginuid.so/session    optional     pam_loginuid.so/g' /etc/pam.d/sshd
-CMD ["/usr/sbin/sshd", "-D"]
+ADD run.sh /run.sh
+RUN chmod 755 /run.sh
+
+CMD ["/run.sh"]
