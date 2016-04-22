@@ -1,7 +1,8 @@
 FROM ubuntu
 
 ENV FIREFOX_VERSION 45.0.2
-RUN apt-get install -y software-properties-common \
+RUN apt-get update -qqy \
+  && apt-get install -y software-properties-common \
   && add-apt-repository -y ppa:openjdk-r/ppa \
   && apt-get update -qqy \
   && apt-get -qqy --no-install-recommends install wget openjdk-8-jre-headless ca-certificates-java firefox \
