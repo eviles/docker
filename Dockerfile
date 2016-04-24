@@ -6,5 +6,14 @@ ENV SCREEN_DEPTH 24
 ENV DISPLAY :99
 
 USER root
-RUN yum install -y firefox xorg-x11-server-Xvfb libXtst
+RUN echo "[google-chrome]
+name=google-chrome
+baseurl=http://dl.google.com/linux/chrome/rpm/stable/\$basearch
+enabled=1
+gpgcheck=1
+gpgkey=https://dl-ssl.google.com/linux/linux_signing_key.pub" > /etc/yum.repos.d/google-chrome.repo
+RUN yum install -y firefox google-chrome-stable xorg-x11-server-Xvfb libXtst \
+&& yum clean all
+COPY xvfb /etc/init.d
+RUN chmod +x /etc/init.d/xvfb
 USER jenkins
