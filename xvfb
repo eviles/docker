@@ -1,12 +1,12 @@
 #!/bin/bash
 
-if ["$SCREEN_WIDTH" = ""]; then
+if ["$SCREEN_WIDTH" == ""]; then
   SCREEN_WIDTH 1360
 fi
-if ["$SCREEN_HEIGHT" = ""]; then
+if ["$SCREEN_HEIGHT" == ""]; then
   SCREEN_HEIGHT 1020
 fi
-if ["$SCREEN_DEPTH" = ""]; then
+if ["$SCREEN_DEPTH" == ""]; then
   SCREEN_DEPTH 24
 fi
 
