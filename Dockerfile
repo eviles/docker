@@ -7,7 +7,7 @@ ENV DISPLAY :99
 
 USER root
 COPY google-chrome.repo /etc/yum.repos.d/google-chrome.repo
-RUN yum install -y firefox google-chrome-stable xorg-x11-server-Xvfb libXtst \
+RUN yum install -y firefox google-chrome-stable xorg-x11-server-Xvfb libXtst libexif \
 && yum clean all
 COPY xvfb /etc/init.d
 RUN chmod +x /etc/init.d/xvfb
