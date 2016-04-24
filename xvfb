@@ -1,4 +1,15 @@
 #!/bin/bash
+
+if ["$SCREEN_WIDTH" = ""]; then
+  SCREEN_WIDTH 1360
+fi
+if ["$SCREEN_HEIGHT" = ""]; then
+  SCREEN_HEIGHT 1020
+fi
+if ["$SCREEN_DEPTH" = ""]; then
+  SCREEN_DEPTH 24
+fi
+
 if [ -z "$1" ]; then
   echo "`basename $0` {start|stop}"
   exit
@@ -6,7 +17,7 @@ fi
 
 case "$1" in
 start)
-  /usr/bin/Xvfb :99 -ac -screen 0 1024x768x8 &
+  /usr/bin/Xvfb :99 -ac -screen 0 $SCREEN_WIDTHx$SCREEN_HEIGHTx$SCREEN_DEPTH &
 ;;
 stop)
   killall Xvfb
