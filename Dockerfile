@@ -19,3 +19,4 @@ RUN echo "[google-chrome]" > /etc/yum.repos.d/google-chrome.repo \
 && echo "command=/usr/bin/Xvfb ${DISPLAY} -ac -screen 0 ${SCREEN_WIDTH}x${SCREEN_HEIGHT}x${SCREEN_DEPTH}" >> /etc/supervisord.conf
 
 COPY google-chrome.sh /opt/google/chrome/google-chrome
+RUN chmod ug+x /opt/google/chrome/google-chrome
