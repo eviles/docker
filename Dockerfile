@@ -11,7 +11,8 @@ RUN echo "[google-chrome]" > /etc/yum.repos.d/google-chrome.repo \
 && echo "enabled=1" >> /etc/yum.repos.d/google-chrome.repo \
 && echo "gpgcheck=1" >> /etc/yum.repos.d/google-chrome.repo \
 && echo "gpgkey=https://dl-ssl.google.com/linux/linux_signing_key.pub" >> /etc/yum.repos.d/google-chrome.repo \
-&& yum install -y firefox google-chrome-stable xorg-x11-server-Xvfb libXtst libexif \
+&& yum update \
+&& yum install -y firefox google-chrome-stable xorg-x11-server-Xvfb libexif \
 && yum clean all \
 && rm -rf /var/cache/yum/* \
 && echo "[program:xvfb]" >> /etc/supervisord.conf \
