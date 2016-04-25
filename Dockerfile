@@ -11,7 +11,7 @@ ENV JENKINS_SLAVE_AGENT_PORT=50000
 
 RUN /usr/sbin/groupadd --gid $JENKINS_GID $JENKINS_GROUP \
 && /usr/sbin/useradd --uid $JENKINS_UID --gid $JENKINS_GID --create-home --shell /bin/bash $JENKINS_USER \
-&& yum install -y wget sudo git unzip zip \
+&& yum install -y wget git unzip zip \
 && yum clean all \
 && rm -rf /var/cache/yum/* \
 && mkdir -p /usr/share/jenkins \
