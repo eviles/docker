@@ -17,3 +17,5 @@ RUN echo "[google-chrome]" > /etc/yum.repos.d/google-chrome.repo \
 && echo "[program:xvfb]" >> /etc/supervisord.conf \
 #&& echo "user=jenkins" >> /etc/supervisord.conf \
 && echo "command=/usr/bin/Xvfb ${DISPLAY} -ac -screen 0 ${SCREEN_WIDTH}x${SCREEN_HEIGHT}x${SCREEN_DEPTH}" >> /etc/supervisord.conf
+
+COPY google-chrome.sh /opt/google/chrome/google-chrome.sh
