@@ -22,6 +22,7 @@ RUN /usr/sbin/groupadd --gid $JENKINS_GID $JENKINS_GROUP \
 && mkdir -p ${JENKINS_HOME} \
 && chown -R $JENKINS_USER:$JENKINS_GROUP ${JENKINS_HOME} \
 && echo "[program:jenkins]" >> /etc/supervisord.conf \
+&& echo "user=jenkins" >> /etc/supervisord.conf \
 && echo "command=java -jar \$JAVA_OPTS /usr/share/jenkins/jenkins.war" >> /etc/supervisord.conf
 
 EXPOSE 8080 50000
