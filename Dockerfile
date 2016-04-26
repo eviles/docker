@@ -11,7 +11,7 @@ ENV JENKINS_SLAVE_AGENT_PORT=50000
 
 RUN /usr/sbin/groupadd --gid $JENKINS_GID $JENKINS_GROUP \
 && /usr/sbin/useradd --uid $JENKINS_UID --gid $JENKINS_GID --create-home --shell /bin/bash $JENKINS_USER \
-&& yum install -y wget git unzip zip \
+&& yum install -y wget git unzip zip bzip2 \
 && yum clean all \
 && rm -rf /var/cache/yum/* \
 && mkdir -p /usr/share/jenkins \
@@ -21,7 +21,7 @@ RUN /usr/sbin/groupadd --gid $JENKINS_GID $JENKINS_GROUP \
 && mkdir -p ${JENKINS_HOME} \
 && chown -R $JENKINS_USER:$JENKINS_GROUP ${JENKINS_HOME} \
 && echo "[program:jenkins]" >> /etc/supervisord.conf \
-&& echo "user=jenkins" >> /etc/supervisord.conf \
+#&& echo "user=jenkins" >> /etc/supervisord.conf \
 && echo "command=java -jar /usr/share/jenkins/jenkins.war" >> /etc/supervisord.conf
 
 EXPOSE 8080 50000
