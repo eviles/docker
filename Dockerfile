@@ -17,7 +17,7 @@ RUN echo "[google-chrome]" > /etc/yum.repos.d/google-chrome.repo \
 && yum clean all \
 && rm -rf /var/cache/yum/* \
 && curl -s -L --url "https://download-installer.cdn.mozilla.net/pub/firefox/releases/${FIREFOX_VERSION}/linux-x86_64/en-US/firefox-${FIREFOX_VERSION}.tar.bz2" | tar -C /opt -xjf \
-&& ln -fs /opt/firefox/firefox /usr/bin/firefox
+&& ln -fs /opt/firefox/firefox /usr/bin/firefox \
 && echo "[program:xvfb]" >> /etc/supervisord.conf \
 && echo "command=/usr/bin/Xvfb ${DISPLAY} -ac -screen 0 ${SCREEN_WIDTH}x${SCREEN_HEIGHT}x${SCREEN_DEPTH}" >> /etc/supervisord.conf \
 && sed -i 's/chrome\"/chrome\" -no-sandbox/' /opt/google/chrome/google-chrome \
