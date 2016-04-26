@@ -15,6 +15,6 @@ RUN echo "[google-chrome]" > /etc/yum.repos.d/google-chrome.repo \
 && yum clean all \
 && rm -rf /var/cache/yum/* \
 && echo "[program:xvfb]" >> /etc/supervisord.conf \
-&& echo "command=/usr/bin/Xvfb ${DISPLAY} -ac -screen 0 ${SCREEN_WIDTH}x${SCREEN_HEIGHT}x${SCREEN_DEPTH}" >> /etc/supervisord.conf
+&& echo "command=/usr/bin/Xvfb ${DISPLAY} -ac -screen 0 ${SCREEN_WIDTH}x${SCREEN_HEIGHT}x${SCREEN_DEPTH}" >> /etc/supervisord.conf \
 && sed -i 's/chrome\"/chrome\" -no-sandbox/' /opt/google/chrome/google-chrome \
 && sed -i 's/google-chrome/google-chrome -no-sandbox/' /opt/google/chrome/google-chrome
