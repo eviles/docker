@@ -19,12 +19,12 @@ datadir                        = /var/lib/mysql
 query-cache-type               = 0
 query-cache-size               = 0
 innodb-autoinc-lock-mode       = 2
-innodb_locks_unsafe_for_binlog = 1
 innodb-log-files-in-group      = 2
 innodb-log-file-size           = 128M
-innodb-flush-log-at-trx-commit = 2
+innodb-flush-log-at-trx-commit = 0
 innodb-file-per-table          = 1
 innodb-buffer-pool-size        = 128M
+skip_name_resolve
 
 [galera]
 wsrep_provider                 = /usr/lib64/galera/libgalera_smm.so
