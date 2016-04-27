@@ -31,3 +31,4 @@ wsrep_provider                 = /usr/lib64/galera/libgalera_smm.so
 wsrep_sst_method               = rsync
 wsrep_slave_threads            = 4
 innodb-flush-log-at-trx-commit = 2
+wsrep_on                       = on
