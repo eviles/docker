@@ -11,6 +11,13 @@ RUN yum -y install openssh openssh-clients openssh-server python-setuptools \
 && sed -i 's/session\s*required\s*pam_loginuid.so/session    optional     pam_loginuid.so/g' /etc/pam.d/sshd \
 && echo "[supervisord]" > /etc/supervisord.conf \
 && echo "nodaemon=true" >> /etc/supervisord.conf \
+&& echo "[unix_http_server]" >> /etc/supervisord.conf \
+&& echo "file=/run/supervisord.sock" >> /etc/supervisord.conf \
+&& echo "chmod=0770" >> /etc/supervisord.conf \
+&& echo "[supervisorctl]" >> /etc/supervisord.conf \
+&& echo "serverurl=unix:///run/supervisord.sock" >> /etc/supervisord.conf \
+&& echo "[rpcinterface:supervisor]" >> /etc/supervisord.conf \
+&& echo "supervisor.rpcinterface_factory=supervisor.rpcinterface:make_main_rpcinterface" >> /etc/supervisord.conf \
 && echo "[program:sshd]" >> /etc/supervisord.conf \
 && echo "command=/usr/sbin/sshd -D" >> /etc/supervisord.conf
 
