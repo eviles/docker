@@ -12,10 +12,11 @@ RUN echo "[mariadb]" > /etc/yum.repos.d/MariaDB.repo \
 && rm -rf /var/cache/yum/* \
 && echo "[program:mysqld]" >> /etc/supervisord.conf \
 && echo "user=mysql" >> /etc/supervisord.conf \
-&& echo "command=/bin/mysqld" >> /etc/supervisord.conf
+&& echo "command=/entrypoint.sh" >> /etc/supervisord.conf
 
 COPY server.cnf /etc/my.cnf.d/server.cnf
 COPY entrypoint.sh /entrypoint.sh
+RUN chmod 755 /entrypoint.sh
 
 EXPOSE 3306
 VOLUME /var/lib/mysql
