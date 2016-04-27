@@ -7,7 +7,7 @@ RUN echo "[mariadb]" > /etc/yum.repos.d/MariaDB.repo \
 && echo "gpgcheck=1" >> /etc/yum.repos.d/MariaDB.repo \
 && groupadd -r mysql \
 && useradd -r -g mysql mysql \
-&& yum -y install MariaDB-server MariaDB-client galera \
+&& yum -y install MariaDB-server MariaDB-client galera rsync lsof \
 && yum clean all \
 && rm -rf /var/cache/yum/* \
 && echo "[program:mysqld]" >> /etc/supervisord.conf \
