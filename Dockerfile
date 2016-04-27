@@ -9,7 +9,10 @@ RUN echo "[mariadb]" > /etc/yum.repos.d/MariaDB.repo \
 && useradd -r -g mysql mysql
 && yum -y install MariaDB-server MariaDB-client galera \
 && yum clean all \
-&& rm -rf /var/cache/yum/*
+&& rm -rf /var/cache/yum/* \
+&& echo "[program:mysqld]" >> /etc/supervisord.conf \
+&& echo "user=mysql" >> /etc/supervisord.conf \
+&& echo "command=/bin/mysqld" >> /etc/supervisord.conf
 
 COPY server.cnf /etc/my.cnf.d/server.cnf
 COPY entrypoint.sh /entrypoint.sh
