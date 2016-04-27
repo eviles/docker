@@ -20,4 +20,3 @@ RUN chmod 755 /entrypoint.sh
 
 EXPOSE 3306
 VOLUME /var/lib/mysql
-ENTRYPOINT ["/entrypoint.sh"]
