@@ -1,6 +1,9 @@
 FROM eviles/jenkins
 
-ARG FIREFOX_VERSION=45.0.2
+ARG FIREFOX_VERSION=46.0.1
+ARG FIREFOX_LANG=zh-TW
+ARG CHROMEDRIVER_VERSION=2.21
+ARG SELENIUM_VERSION=2.53
 ENV SCREEN_WIDTH=1360
 ENV SCREEN_HEIGHT=1020
 ENV SCREEN_DEPTH=24
@@ -16,9 +19,12 @@ RUN echo "[google-chrome]" > /etc/yum.repos.d/google-chrome.repo \
 && yum remove -y firefox \
 && yum clean all \
 && rm -rf /var/cache/yum/* \
-&& curl -s -L --url "https://download-installer.cdn.mozilla.net/pub/firefox/releases/${FIREFOX_VERSION}/linux-x86_64/en-US/firefox-${FIREFOX_VERSION}.tar.bz2" | tar -C /opt -xj \
+&& curl -s -L --url "https://download-installer.cdn.mozilla.net/pub/firefox/releases/${FIREFOX_VERSION}/linux-x86_64/${FIREFOX_LANG}/firefox-${FIREFOX_VERSION}.tar.bz2" | tar -C /opt -xj \
 && ln -fs /opt/firefox/firefox /usr/bin/firefox \
 && echo "[program:xvfb]" >> /etc/supervisord.conf \
 && echo "command=/usr/bin/Xvfb ${DISPLAY} -ac -screen 0 ${SCREEN_WIDTH}x${SCREEN_HEIGHT}x${SCREEN_DEPTH}" >> /etc/supervisord.conf \
 && sed -i 's/chrome\"/chrome\" -no-sandbox/' /opt/google/chrome/google-chrome \
-&& sed -i 's/google-chrome/google-chrome -no-sandbox/' /opt/google/chrome/google-chrome
+&& sed -i 's/google-chrome/google-chrome -no-sandbox/' /opt/google/chrome/google-chrome \
+&& curl -s -L --url "http://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip" | unzip -d /usr/local/share \
+&& chmod 755 /usr/local/share/chromedriver \
+&& curl -s -L --url "http://selenium-release.storage.googleapis.com/${SELENIUM_VERSION}/selenium-server-standalone-${SELENIUM_VERSION}.0.jar" -O /usr/loca/share/selenium-server-standalone.jar
