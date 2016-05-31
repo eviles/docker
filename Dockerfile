@@ -25,7 +25,6 @@ RUN echo "[google-chrome]" > /etc/yum.repos.d/google-chrome.repo \
 && echo "command=/usr/bin/Xvfb ${DISPLAY} -ac -screen 0 ${SCREEN_WIDTH}x${SCREEN_HEIGHT}x${SCREEN_DEPTH}" >> /etc/supervisord.conf \
 && sed -i 's/chrome\"/chrome\" -no-sandbox/' /opt/google/chrome/google-chrome \
 && sed -i 's/google-chrome/google-chrome -no-sandbox/' /opt/google/chrome/google-chrome \
-&& alias unzip-stream='python -c \"import zipfile,sys,StringIO;zipfile.ZipFile(StringIO.StringIO(sys.stdin.read())).extractall(sys.argv[1] if len(sys.argv) == 2 else '.')\"' \
-&& curl -s -L --url "http://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip" | unzip-stream /usr/local/share \
+&& curl -s -L --url "http://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip" | jar xvf /usr/local/share \
 && chmod 755 /usr/local/share/chromedriver \
 && curl -s -L --url "http://selenium-release.storage.googleapis.com/${SELENIUM_VERSION}/selenium-server-standalone-${SELENIUM_VERSION}.0.jar" -o /usr/loca/share/selenium-server-standalone.jar
