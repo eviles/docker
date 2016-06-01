@@ -15,7 +15,7 @@ RUN echo "[google-chrome]" > /etc/yum.repos.d/google-chrome.repo \
 && echo "enabled=1" >> /etc/yum.repos.d/google-chrome.repo \
 && echo "gpgcheck=1" >> /etc/yum.repos.d/google-chrome.repo \
 && echo "gpgkey=https://dl-ssl.google.com/linux/linux_signing_key.pub" >> /etc/yum.repos.d/google-chrome.repo \
-&& yum install -y wget git unzip zip bzip2 firefox google-chrome-stable xorg-x11-server-Xvfb libexif \
+&& yum install -y wget git unzip zip bzip2 firefox google-chrome-stable xorg-x11-server-Xvfb libexif gtk3 \
 && yum remove -y firefox \
 && yum clean all \
 && rm -rf /var/cache/yum/* \
@@ -29,4 +29,5 @@ RUN echo "[google-chrome]" > /etc/yum.repos.d/google-chrome.repo \
 && unzip /tmp/chromedriver_linux64.zip -d /usr/local/share \
 && rm -f /tmp/chromedriver_linux64.zip \
 && chmod 755 /usr/local/share/chromedriver \
-&& curl -s -L --url "http://selenium-release.storage.googleapis.com/${SELENIUM_VERSION}/selenium-server-standalone-${SELENIUM_VERSION}.0.jar" -o /usr/local/share/selenium-server-standalone.jar
+&& curl -s -L --url "http://selenium-release.storage.googleapis.com/${SELENIUM_VERSION}/selenium-server-standalone-${SELENIUM_VERSION}.0.jar" -o /usr/local/share/selenium-server-standalone.jar \
+&& dbus-uuidgen > /var/lib/dbus/machine-id
