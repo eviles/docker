@@ -21,5 +21,5 @@ COPY server.cnf /etc/my.cnf.d/server.cnf
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod 755 /entrypoint.sh
 
-EXPOSE 3306
+EXPOSE 3306 4567 4444
 VOLUME /var/lib/mysql
