@@ -2,11 +2,11 @@ FROM eviles/centos-sshd
 
 RUN echo "[mariadb]" > /etc/yum.repos.d/MariaDB.repo \
 && echo "name = MariaDB" >> /etc/yum.repos.d/MariaDB.repo \
-&& echo "baseurl = http://yum.mariadb.org/10.0/centos7-amd64" >> /etc/yum.repos.d/MariaDB.repo \
+&& echo "baseurl = http://yum.mariadb.org/10.2/centos7-amd64" >> /etc/yum.repos.d/MariaDB.repo \
 && echo "gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB" >> /etc/yum.repos.d/MariaDB.repo \
 && echo "gpgcheck=1" >> /etc/yum.repos.d/MariaDB.repo \
 && yum -y install http://www.percona.com/downloads/percona-release/redhat/0.1-3/percona-release-0.1-3.noarch.rpm \
-&& yum -y install MariaDB-Galera-server MariaDB-client galera percona-xtrabackup-24 rsync bind-utils socat which \
+&& yum -y install MariaDB-server MariaDB-client galera percona-xtrabackup-24 rsync bind-utils socat which \
 && yum clean all \
 && rm -rf /var/cache/yum/* \
 && rm -rf /var/lib/mysql/* \
