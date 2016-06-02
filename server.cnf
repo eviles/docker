@@ -1,35 +1,50 @@
-[mysql]
-port                           = 3306
-socket                         = /var/lib/mysql/mysql.sock
+#
+# These groups are read by MariaDB server.
+# Use it for options that only the server (but not clients) should see
+#
+# See the examples of server my.cnf files in /usr/share/mysql/
+#
 
+# this is read by the standalone daemon and embedded servers
+[server]
+
+# this is only for the mysqld standalone daemon
 [mysqld]
-user                           = mysql
-default-storage-engine         = InnoDB
-socket                         = /var/lib/mysql/mysql.sock
-pid-file                       = /var/lib/mysql/mysql.pid
-bind-address                   = 0.0.0.0
-log-bin                        = /var/lib/mysql/mysql-bin
-expire-logs-days               = 2
-sync-binlog                    = 1
-binlog-format                  = row
-collation-server               = utf8_unicode_ci 
-init-connect                   = 'SET NAMES utf8'
-character-set-server           = utf8
-datadir                        = /var/lib/mysql
-query-cache-type               = 0
-query-cache-size               = 0
-innodb-autoinc-lock-mode       = 2
-innodb-log-files-in-group      = 2
-innodb-log-file-size           = 48M
-innodb-flush-log-at-trx-commit = 0
-innodb-file-per-table          = 1
-innodb-buffer-pool-size        = 128M
-skip_name_resolve
 
+#
+# * Galera-related settings
+#
 [galera]
-wsrep_provider                 = /usr/lib64/galera/libgalera_smm.so
-wsrep_sst_method               = xtrabackup-v2
-wsrep_sst_auth                 = sstuser:sstpass
-wsrep_slave_threads            = 4
-innodb-flush-log-at-trx-commit = 2
-wsrep_on                       = on
+# Mandatory settings
+wsrep_on=ON
+wsrep_provider=/usr/lib64/galera/libgalera_smm.so
+wsrep_sst_method=xtrabackup-v2
+wsrep_sst_auth=sstuser:sstpass
+wsrep_cluster_address='gcomm://'
+wsrep_cluster_name='local-test'
+wsrep_node_address='master'
+wsrep_node_name='master'
+binlog_format=row
+default_storage_engine=InnoDB
+innodb_autoinc_lock_mode=2
+
+# Allow server to accept connections on all interfaces.
+bind-address=0.0.0.0
+
+# Optional setting
+wsrep_slave_threads=1
+innodb_flush_log_at_trx_commit=0
+
+
+# this is only for embedded server
+[embedded]
+
+# This group is only read by MariaDB servers, not by MySQL.
+# If you use the same .cnf file for MySQL and MariaDB,
+# you can put MariaDB-only options here
+[mariadb]
+
+# This group is only read by MariaDB-10.1 servers.
+# If you use the same .cnf file for MariaDB of different versions,
+# use this group for options that older servers don't understand
+[mariadb-10.1]
