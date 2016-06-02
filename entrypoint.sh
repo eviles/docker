@@ -37,9 +37,10 @@ if [ ! -d "/var/lib/mysql/mysql" ]; then
 fi
 
 if [ ${CLUSTER} = "master" ]; then
-  exec "$@" --wsrep_node_address="${HOSTNAME}" \
+  exec "$@" --wsrep_new_cluster \
+    --wsrep_node_address="${HOSTNAME}" \
     --wsrep_cluster_name="${CLUSTER_NAME}" \
-    --wsrep_new_cluster --wsrep_cluster_address="gcomm://" \
+    --wsrep_cluster_address="gcomm://" \
     --wsrep_node_name="${HOSTNAME}"
 else
   exec "$@" --wsrep_node_address="${HOSTNAME}" \
