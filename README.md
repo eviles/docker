@@ -1,1 +1,1 @@
-# alpine-jenkins-selenium-slave
+# alpine-jenkins
