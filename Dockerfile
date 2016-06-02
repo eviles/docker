@@ -1,6 +1,6 @@
 FROM alpine
 
-RUN apk --update add supervisor nss-pam-ldapd openssh bash wget curl \
+RUN apk --update add supervisor nss-pam-ldapd openssh bash wget curl tar \
 && rm -rf /var/cache/apk/* \
 && ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa \
 && ssh-keygen -f /etc/ssh/ssh_host_ecdsa_key -N '' -t ecdsa \
