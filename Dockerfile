@@ -1,5 +1,7 @@
 FROM eviles/centos-sshd
 
+ENV TERM=xterm
+
 RUN echo "[mariadb]" > /etc/yum.repos.d/MariaDB.repo \
 && echo "name = MariaDB" >> /etc/yum.repos.d/MariaDB.repo \
 && echo "baseurl = http://yum.mariadb.org/10.2/centos7-amd64" >> /etc/yum.repos.d/MariaDB.repo \
