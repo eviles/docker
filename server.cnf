@@ -18,8 +18,9 @@
 # Mandatory settings
 wsrep_on=ON
 wsrep_provider=/usr/lib64/galera/libgalera_smm.so
-wsrep_sst_method=xtrabackup-v2
-wsrep_sst_auth=sstuser:sstpass
+wsrep_sst_method=rsync
+#wsrep_sst_method=xtrabackup-v2
+#wsrep_sst_auth=sstuser:sstpass
 binlog_format=row
 default_storage_engine=InnoDB
 innodb_autoinc_lock_mode=2
