@@ -9,6 +9,7 @@ RUN echo "[mariadb]" > /etc/yum.repos.d/MariaDB.repo \
 && yum -y install MariaDB-Galera-server MariaDB-client galera percona-xtrabackup-24 rsync bind-utils socat which \
 && yum clean all \
 && rm -rf /var/cache/yum/* \
+&& rm -rf /var/lib/mysql/* \
 && echo "[program:mysqld]" >> /etc/supervisord.conf \
 && echo "user=mysql" >> /etc/supervisord.conf \
 && echo "stdout_logfile=/dev/stdout" >> /etc/supervisord.conf \
