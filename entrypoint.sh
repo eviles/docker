@@ -27,7 +27,7 @@ if [ ! -d "/var/lib/mysql/mysql" ]; then
   fi
 
   echo "CREATE USER 'sstuser'@'%' IDENTIFIED BY 'sstpass' ;" | "${mysql[@]}"
-  echo "GRANT RELOAD, LOCK TABLES, REPLICATION CLIENT ON *.* TO 'sstuser'@'%' ;" | "${mysql[@]}"
+  echo "GRANT ALL PRIVILEGES ON *.* TO 'sstuser'@'%' ;" | "${mysql[@]}"
   echo 'FLUSH PRIVILEGES ;' | "${mysql[@]}"
   
   if ! kill -s TERM "$pid" || ! wait "$pid"; then
@@ -38,12 +38,12 @@ fi
 
 if [ ${CLUSTER} = "master" ]; then
   exec "$@" --wsrep_new_cluster \
-    --wsrep_node_address="${HOSTNAME}" \
+    --wsrep_node_address="`hostname -i`" \
     --wsrep_cluster_name="${CLUSTER_NAME}" \
     --wsrep_cluster_address="gcomm://" \
     --wsrep_node_name="${HOSTNAME}"
 else
-  exec "$@" --wsrep_node_address="${HOSTNAME}" \
+  exec "$@" --wsrep_node_address="`hostname -i`" \
     --wsrep_cluster_name="${CLUSTER_NAME}" \
     --wsrep_cluster_address="gcomm://${CLUSTER}" \
     --wsrep_node_name="${HOSTNAME}"
