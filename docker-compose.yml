@@ -1,0 +1,29 @@
+master:
+  image:
+    eviles/mariadb-galera
+  hostname:
+    master
+  environment:
+    - NEW_CLUSTER=1
+    - CLUSTER_NAME=local-test
+    - CLUSTER=master
+db2:
+  image:
+    eviles/mariadb-galera
+  hostname:
+    db2
+  environment:
+    - CLUSTER_NAME=local-test
+    - CLUSTER=master
+  links:
+    - master
+db3:
+  image:
+    eviles/mariadb-galera
+  hostname:
+    db3
+  environment:
+    - CLUSTER_NAME=local-test
+    - CLUSTER=master
+  links:
+    - master
