@@ -1,6 +1,6 @@
 FROM alpine
 
-ARG GLIBC_VERSION 2.23-r1
+ARG GLIBC_VERSION=2.23-r1
 
 RUN apk --update add supervisor nss-pam-ldapd openssh bash wget curl tar \
 && ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa \
