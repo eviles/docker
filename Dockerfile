@@ -7,7 +7,7 @@ RUN apk --update add apache2 apache2-utils apache2-proxy \
 && echo "[program:httpd]" >> /etc/supervisord.conf \
 && echo "command=/usr/sbin/httpd -D FOREGROUND" >> /etc/supervisord.conf \
 && mkdir /run/apache2 \
-&& addgroup apache \
+&& addgroup -S apache \
 && echo "ProxyPassMatch ^/(.*\.do)\$ ajp://localhost:8009/\$1" >> /etc/apache2/httpd.conf \
 && echo "ProxyPassMatch ^/(.*\.jsp)\$ ajp://localhost:8009/\$1" >> /etc/apache2/httpd.conf \
 && echo "ProxyPassReverse  /  ajp://localhost:8009/" >> /etc/apache2/httpd.conf
