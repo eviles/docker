@@ -1,7 +1,8 @@
 FROM alpine
 
+ARG GLIBC_VERSION 2.23-r1
+
 RUN apk --update add supervisor nss-pam-ldapd openssh bash wget curl tar \
-&& rm -rf /var/cache/apk/* \
 && ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa \
 && ssh-keygen -f /etc/ssh/ssh_host_ecdsa_key -N '' -t ecdsa \
 && ssh-keygen -A \
@@ -18,6 +19,13 @@ RUN apk --update add supervisor nss-pam-ldapd openssh bash wget curl tar \
 && echo "[program:sshd]" >> /etc/supervisord.conf \
 && echo "command=/usr/sbin/sshd -D" >> /etc/supervisord.conf \
 && echo "root:123456" | chpasswd
+&& curl -o /var/cache/apk/glibc.apk -L "https://github.com/andyshinn/alpine-pkg-glibc/releases/download/${GLIBC_VERSION}/glibc-${GLIBC_VERSION}.apk" \
+&& apk add --allow-untrusted glibc.apk \
+&& curl -o /var/cache/apk/glibc-bin.apk -L "https://github.com/andyshinn/alpine-pkg-glibc/releases/download/${GLIBC_VERSION}/glibc-bin-${GLIBC_VERSION}.apk" \
+&& apk add --allow-untrusted glibc-bin.apk \
+&& /usr/glibc/usr/bin/ldconfig "/lib" "/usr/glibc/usr/lib" \
+&& echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf \
+&& rm -rf /var/cache/apk/*
 
 EXPOSE 22
 
