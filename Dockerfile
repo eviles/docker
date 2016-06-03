@@ -10,7 +10,7 @@ ENV JENKINS_HOME=/var/jenkins
 ENV JENKINS_SLAVE_AGENT_PORT=50000
 
 RUN /usr/sbin/addgroup -g $JENKINS_GID $JENKINS_GROUP \
-&& /usr/sbin/useradd -u $JENKINS_UID -G $JENKINS_GROUP -h /home/$JENKINS_USER -D $JENKINS_USER \
+&& /usr/sbin/adduser -u $JENKINS_UID -G $JENKINS_GROUP -h /home/$JENKINS_USER -D $JENKINS_USER \
 && apk --update add wget tar git unzip zip bzip2 \
 && rm -rf /var/cache/apk/* \
 && mkdir -p /usr/share/jenkins \
