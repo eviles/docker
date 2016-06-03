@@ -10,7 +10,7 @@ RUN apk --update add supervisor nss-pam-ldapd openssh bash wget curl tar \
 && apk add --allow-untrusted /var/cache/apk/glibc.apk \
 && curl -o /var/cache/apk/glibc-bin.apk -L "https://github.com/andyshinn/alpine-pkg-glibc/releases/download/${GLIBC_VERSION}/glibc-bin-${GLIBC_VERSION}.apk" \
 && apk add --allow-untrusted /var/cache/apk/glibc-bin.apk \
-&& /usr/glibc/usr/bin/ldconfig "/lib" "/usr/glibc/usr/lib" \
+&& /usr/glibc-compat/sbin/ldconfig /lib /usr/glibc/usr/lib \
 && echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf \
 && rm -rf /var/cache/apk/* \
 && sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config \
