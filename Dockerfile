@@ -10,6 +10,7 @@ RUN apk --update add apache2 apache2-utils apache2-proxy \
 && mkdir /run/apache2 \
 && addgroup apache \
 && sed -i 's/^#LoadModule slotmem_shm_module/LoadModule slotmem_shm_module/g' /etc/apache2/httpd.conf \
+&& addgroup -S apache \
 && echo "ProxyPassMatch ^/(.*\.do)\$ ajp://localhost:8009/\$1" >> /etc/apache2/httpd.conf \
 && echo "ProxyPassMatch ^/(.*\.jsp)\$ ajp://localhost:8009/\$1" >> /etc/apache2/httpd.conf \
 && echo "ProxyPassReverse  /  ajp://localhost:8009/" >> /etc/apache2/httpd.conf
