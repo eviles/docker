@@ -5,3 +5,5 @@ RUN yum -y groupinstall 'Development Tools' \
 && yum clean all \
 && rm -rf /var/cache/yum/* \
 && localedef -i zh_TW -c -f UTF-8 zh_TW.UTF-8
+
+ENV LC_ALL=zh_TW.UTF-8
