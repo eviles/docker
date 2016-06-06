@@ -34,8 +34,6 @@ if [ ! -d "/var/lib/mysql/mysql" ]; then
     echo >&2 'MySQL init process failed.'
     exit 1
   fi
-else
-  NEW_CLUSTER=0
 fi
 
 if [ ${NEW_CLUSTER} = "1" ]; then
