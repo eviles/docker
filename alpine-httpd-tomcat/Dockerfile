@@ -14,5 +14,5 @@ RUN apk --update add apache2 apache2-utils apache2-proxy \
 && echo "ProxyPassMatch ^/(.*\.jsp)\$ ajp://localhost:8009/\$1" >> /etc/apache2/httpd.conf \
 && echo "ProxyPassReverse  /  ajp://localhost:8009/" >> /etc/apache2/httpd.conf
 
-EXPOSE 80
+EXPOSE 80 443
 VOLUME /var/www/localhost/htdocs
