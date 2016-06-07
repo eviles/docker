@@ -1,0 +1,82 @@
+#
+# These groups are read by MariaDB server.
+# Use it for options that only the server (but not clients) should see
+#
+# See the examples of server my.cnf files in /usr/share/mysql/
+#
+
+# this is read by the standalone daemon and embedded servers
+[server]
+
+# this is only for the mysqld standalone daemon
+[mysqld]
+skip-external-locking
+key_buffer_size = 600M
+max_allowed_packet = 32M
+table_open_cache = 4096
+#record_buffer = 400M
+sort_buffer_size = 64M
+net_buffer_length = 1M
+read_buffer_size = 64M
+read_rnd_buffer_size = 100M
+myisam_sort_buffer_size = 256M
+thread_cache_size = 64
+query_cache_size= 512M
+query_cache_type = 1
+query_cache_limit = 3145728
+long_query_time = 4
+innodb_thread_concurrency = 8
+innodb_large_prefix = ON
+tmp_table_size = 512M
+# 不要開太大
+max_heap_table_size = 256M
+join_buffer_size = 64M
+open_files_limit = 4096
+max_connect_errors = 30000
+expire_logs_days = 5
+character-set-server = utf8
+collation-server = utf8_general_ci
+init_connect = 'SET collation_connection = utf8_general_ci'
+init_connect = 'SET NAMES utf8'
+old_passwords = 2
+wait_timeout=600 
+interactive_timeout=600
+max_connections=200
+event_scheduler=ON
+innodb_file_per_table=1
+sql-mode=''
+
+#
+# * Galera-related settings
+#
+[galera]
+# Mandatory settings
+wsrep_on=ON
+wsrep_provider=/usr/lib64/galera/libgalera_smm.so
+wsrep_sst_method=rsync
+#wsrep_sst_method=xtrabackup-v2
+#wsrep_sst_auth=sstuser:sstpass
+binlog_format=row
+default_storage_engine=InnoDB
+innodb_autoinc_lock_mode=2
+
+# Allow server to accept connections on all interfaces.
+bind-address=0.0.0.0
+
+# Optional setting
+wsrep_slave_threads=1
+innodb_flush_log_at_trx_commit=0
+
+
+# this is only for embedded server
+[embedded]
+
+# This group is only read by MariaDB servers, not by MySQL.
+# If you use the same .cnf file for MySQL and MariaDB,
+# you can put MariaDB-only options here
+[mariadb]
+
+# This group is only read by MariaDB-10.1 servers.
+# If you use the same .cnf file for MariaDB of different versions,
+# use this group for options that older servers don't understand
+[mariadb-10.1]
