@@ -1,0 +1,50 @@
+master:
+  image:
+    eviles/mariadb-galera
+  hostname:
+    master
+  environment:
+    - NEW_CLUSTER=1
+    - CLUSTER_NAME=local-test
+    - CLUSTER=master
+  volumes_from:
+   - master-volume:rw
+  volumes:
+   - ./server.cnf:/etc/my.cnf.d/server.cnf
+db2:
+  image:
+    eviles/mariadb-galera
+  hostname:
+    db2
+  environment:
+    - CLUSTER_NAME=local-test
+    - CLUSTER=master
+  volumes_from:
+   - db2-volume:rw
+  volumes:
+    - ./server.cnf:/etc/my.cnf.d/server.cnf
+  links:
+    - master
+db3:
+  image:
+    eviles/mariadb-galera
+  hostname:
+    db3
+  environment:
+    - CLUSTER_NAME=local-test
+    - CLUSTER=master
+  volumes_from:
+   - db3-volume:rw
+  volumes:
+    - ./server.cnf:/etc/my.cnf.d/server.cnf
+  links:
+    - master
+master-volume:
+  image:
+    eviles/mysql-volume
+db2-volume:
+  image:
+    eviles/mysql-volume
+db3-volume:
+  image:
+    eviles/mysql-volume
