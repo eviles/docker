@@ -13,7 +13,7 @@ RUN yum -y install epel-release \
 && make \
 && make install \
 && echo "[fcgi-program:fcgiwrap]" >> /etc/supervisord.conf \
-&& echo "command=/usr/sbin/fcgiwrap" >> /etc/supervisord.conf \
+&& echo "command=/usr/local/sbin/fcgiwrap" >> /etc/supervisord.conf \
 && echo "user=nginx" >> /etc/supervisord.conf \
 && echo "socket=unix:///var/run/%(program_name)s.sock" >> /etc/supervisord.conf \
 && echo "socket_owner=nginx:nginx" >> /etc/supervisord.conf \
