@@ -2,7 +2,7 @@ FROM eviles/nginx
 
 RUN yum -y install epel-release \
 && yum -y groupinstall 'Development Tools' \
-&& yum -y install fcgi-devel spawn-fcgi \
+&& yum -y install libstdc++ libstdc++.i686 fcgi-devel spawn-fcgi \
 && yum clean all \
 && rm -rf /var/cache/yum/* \
 && cd /usr/local/src/ \
