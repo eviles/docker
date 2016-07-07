@@ -15,7 +15,7 @@ RUN echo "[dockerrepo]" > /etc/yum.repos.d/docker.repo \
 && echo "gpgkey=https://yum.dockerproject.org/gpg" >> /etc/yum.repos.d/docker.repo \
 && yum -y install epel-release \
 && yum -y groupinstall 'Development Tools' \
-&& yum -y install rsync less wget net-tools libstdc++ libstdc++.i686 libcurl libcurl.i686 docker-engine python-pip nodejs npm \
+&& yum -y install rsync less wget net-tools libstdc++ libstdc++.i686 libcurl libcurl.i686 docker-engine python-pip nodejs npm cronie at \
 && yum clean all \
 && rm -rf /var/cache/yum/* \
 && pip install --upgrade pip \
