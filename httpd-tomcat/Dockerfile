@@ -14,5 +14,5 @@ RUN chmod 755 /usr/lib64/httpd/modules/mod_jk.so \
 && echo "[program:httpd]" >> /etc/supervisord.conf \
 && echo "command=/usr/sbin/httpd -D FOREGROUND" >> /etc/supervisord.conf
 
-EXPOSE 80
+EXPOSE 80 443
 VOLUME /var/www/html
