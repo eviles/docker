@@ -5,12 +5,12 @@ ADD mail-1.4.7.jar /usr/local/java/jre/lib/ext/mail-1.4.7.jar
 ADD mysql-connector-java-5.1.38.jar /usr/local/java/jre/lib/ext/mysql-connector-java-5.1.38.jar
 ADD mysql-connector-java-5.1.38.jar /usr/local/tomcat/lib/mysql-connector-java-5.1.38.jar
 
-RUN echo "[dockerrepo]" > /etc/yum.repos.d/docker.repo
-&& echo "name=Docker Repository" >> /etc/yum.repos.d/docker.repo
-&& echo "baseurl=https://yum.dockerproject.org/repo/main/centos/7/" >> /etc/yum.repos.d/docker.repo
-&& echo "enabled=1" >> /etc/yum.repos.d/docker.repo
-&& echo "gpgcheck=1" >> /etc/yum.repos.d/docker.repo
-&& echo "gpgkey=https://yum.dockerproject.org/gpg" >> /etc/yum.repos.d/docker.repo
+RUN echo "[dockerrepo]" > /etc/yum.repos.d/docker.repo \
+&& echo "name=Docker Repository" >> /etc/yum.repos.d/docker.repo \
+&& echo "baseurl=https://yum.dockerproject.org/repo/main/centos/7/" >> /etc/yum.repos.d/docker.repo \
+&& echo "enabled=1" >> /etc/yum.repos.d/docker.repo \
+&& echo "gpgcheck=1" >> /etc/yum.repos.d/docker.repo \
+&& echo "gpgkey=https://yum.dockerproject.org/gpg" >> /etc/yum.repos.d/docker.repo \
 && yum -y groupinstall 'Development Tools' \
 && yum -y install rsync less wget net-tools libstdc++ libstdc++.i686 libcurl libcurl.i686 docker-engine \
 && yum clean all \
