@@ -5,7 +5,8 @@ ADD mail-1.4.7.jar /usr/local/java/jre/lib/ext/mail-1.4.7.jar
 ADD mysql-connector-java-5.1.38.jar /usr/local/java/jre/lib/ext/mysql-connector-java-5.1.38.jar
 ADD mysql-connector-java-5.1.38.jar /usr/local/tomcat/lib/mysql-connector-java-5.1.38.jar
 
-RUN yum -y groupinstall 'Development Tools' \
+RUN yum -y install epel-release \
+&& yum -y groupinstall 'Development Tools' \
 && yum -y install wget less net-tools libstdc++ libstdc++.i686 libcurl libcurl.i686 \
 && yum clean all \
 && rm -rf /var/cache/yum/* \
