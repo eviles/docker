@@ -26,6 +26,10 @@ RUN echo "[dockerrepo]" > /etc/yum.repos.d/docker.repo \
 && make \
 && make install \
 && rm -rf /usr/local/src/yaz-${YAZ_VERSION} \
+&& echo "[program:atd]" >> /etc/supervisord.conf \
+&& echo "command=/usr/sbin/atd" >> /etc/supervisord.conf \
+&& echo "[program:crond]" >> /etc/supervisord.conf \
+&& echo "command=/usr/sbin/crond" >> /etc/supervisord.conf \
 && localedef -i zh_TW -c -f UTF-8 zh_TW.UTF-8
 
 ENV LC_ALL=zh_TW.UTF-8
