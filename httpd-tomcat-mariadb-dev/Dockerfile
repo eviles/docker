@@ -15,7 +15,7 @@ RUN echo "[dockerrepo]" > /etc/yum.repos.d/docker.repo \
 && echo "gpgkey=https://yum.dockerproject.org/gpg" >> /etc/yum.repos.d/docker.repo \
 && yum -y install epel-release \
 && yum -y groupinstall 'Development Tools' \
-&& yum -y install rsync less wget net-tools libstdc++ libstdc++.i686 libcurl libcurl.i686 docker-engine python-pip nodejs npm cronie at \
+&& yum -y install rsync less wget net-tools libstdc++ libstdc++.i686 libcurl libcurl.i686 docker-engine python-pip nodejs npm cronie at nginx \
 && yum clean all \
 && rm -rf /var/cache/yum/* \
 && pip install --upgrade pip \
@@ -30,6 +30,10 @@ RUN echo "[dockerrepo]" > /etc/yum.repos.d/docker.repo \
 && echo "command=/usr/sbin/atd -d" >> /etc/supervisord.conf \
 && echo "[program:crond]" >> /etc/supervisord.conf \
 && echo "command=/usr/sbin/crond -n" >> /etc/supervisord.conf \
+&& echo "[program:nginx]" >> /etc/supervisord.conf \
+&& echo "command=/usr/sbin/nginx -g \"daemon off;\"" >> /etc/supervisord.conf \
+&& echo "autostart=false" >> /etc/supervisord.conf \
+&& echo "autorestart=false" >> /etc/supervisord.conf \
 && localedef -i zh_TW -c -f UTF-8 zh_TW.UTF-8
 
 ENV LC_ALL=zh_TW.UTF-8
