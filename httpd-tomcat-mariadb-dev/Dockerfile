@@ -45,7 +45,7 @@ RUN echo "[dockerrepo]" > /etc/yum.repos.d/docker.repo \
 && echo "[program:crond]" >> /etc/supervisord.conf \
 && echo "command=/usr/sbin/crond -n" >> /etc/supervisord.conf \
 && echo "[program:nginx]" >> /etc/supervisord.conf \
-&& echo "command=/usr/sbin/nginx -g \"daemon off;\"" >> /etc/supervisord.conf
+&& echo "command=/usr/sbin/nginx -g \"daemon off;\"" >> /etc/supervisord.conf \
 && localedef -i zh_TW -c -f UTF-8 zh_TW.UTF-8
 
 ENV LC_ALL=zh_TW.UTF-8
