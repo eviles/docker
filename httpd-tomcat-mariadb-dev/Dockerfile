@@ -15,7 +15,7 @@ RUN echo "[dockerrepo]" > /etc/yum.repos.d/docker.repo \
 && echo "gpgkey=https://yum.dockerproject.org/gpg" >> /etc/yum.repos.d/docker.repo \
 && yum -y install epel-release \
 && yum -y groupinstall 'Development Tools' \
-&& yum -y install rsync less wget net-tools libstdc++ libstdc++.i686 libcurl libcurl.i686 docker-engine python-pip nodejs npm cronie at nginx \
+&& yum -y install rsync less wget net-tools libstdc++ libstdc++.i686 libcurl libcurl.i686 docker-engine python-pip nodejs npm cronie at nginx fcgi-devel spawn-fcgi \
 && yum clean all \
 && rm -rf /var/cache/yum/* \
 && pip install --upgrade pip \
@@ -26,6 +26,20 @@ RUN echo "[dockerrepo]" > /etc/yum.repos.d/docker.repo \
 && make \
 && make install \
 && rm -rf /usr/local/src/yaz-${YAZ_VERSION} \
+&& cd /usr/local/src/ \
+&& git clone https://github.com/gnosek/fcgiwrap.git \
+&& cd fcgiwrap \
+&& autoreconf -i \
+&& ./configure \
+&& make \
+&& make install \
+&& rm -rf /usr/local/src/fcgiwrap \
+&& echo "[fcgi-program:fcgiwrap]" >> /etc/supervisord.conf \
+&& echo "command=/usr/local/sbin/fcgiwrap" >> /etc/supervisord.conf \
+&& echo "user=nginx" >> /etc/supervisord.conf \
+&& echo "socket=unix:///var/run/%(program_name)s.sock" >> /etc/supervisord.conf \
+&& echo "socket_owner=nginx:nginx" >> /etc/supervisord.conf \
+&& echo "socket_mode=0770" >> /etc/supervisord.conf \
 && echo "[program:atd]" >> /etc/supervisord.conf \
 && echo "command=/usr/sbin/atd -d" >> /etc/supervisord.conf \
 && echo "[program:crond]" >> /etc/supervisord.conf \
