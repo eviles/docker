@@ -15,7 +15,7 @@ RUN echo "[google-chrome]" > /etc/yum.repos.d/google-chrome.repo \
 && echo "enabled=1" >> /etc/yum.repos.d/google-chrome.repo \
 && echo "gpgcheck=1" >> /etc/yum.repos.d/google-chrome.repo \
 && echo "gpgkey=https://dl-ssl.google.com/linux/linux_signing_key.pub" >> /etc/yum.repos.d/google-chrome.repo \
-&& yum install -y wget git unzip zip bzip2 firefox google-chrome-stable xorg-x11-server-Xvfb libexif gtk3 \
+&& yum install -y wget git git-svn unzip zip bzip2 firefox google-chrome-stable xorg-x11-server-Xvfb libexif gtk3 \
 && yum remove -y firefox \
 && yum clean all \
 && rm -rf /var/cache/yum/* \
