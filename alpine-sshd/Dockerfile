@@ -1,6 +1,6 @@
 FROM alpine
 
-ARG GLIBC_VERSION=2.23-r1
+ARG GLIBC_VERSION=2.25-r0
 
 RUN apk --update add supervisor nss-pam-ldapd openssh bash wget curl tar \
 && ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa \
@@ -24,8 +24,7 @@ RUN apk --update add supervisor nss-pam-ldapd openssh bash wget curl tar \
 && echo "[rpcinterface:supervisor]" >> /etc/supervisord.conf \
 && echo "supervisor.rpcinterface_factory=supervisor.rpcinterface:make_main_rpcinterface" >> /etc/supervisord.conf \
 && echo "[program:sshd]" >> /etc/supervisord.conf \
-&& echo "command=/usr/sbin/sshd -D" >> /etc/supervisord.conf \
-&& echo "root:123456" | chpasswd
+&& echo "command=/usr/sbin/sshd -D" >> /etc/supervisord.conf
 
 EXPOSE 22
 
