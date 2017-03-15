@@ -4,7 +4,7 @@
 
 ### With Certbot
 
-Use DOMAINS to automatic obtain an SSL certificate. It'll take a long time.
+Use DOMAINS to automatic obtain an SSL certificate. It'll take a long time in first run.
 
     docker run -d -p 80:80 -p 443:443 -e DOMAINS=example.com eviles/alpine-nginx
 
