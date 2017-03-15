@@ -13,7 +13,7 @@ RUN apk --update add supervisor nss-pam-ldapd openssh bash wget curl tar \
 && /usr/glibc-compat/sbin/ldconfig /lib /usr/glibc/usr/lib \
 && echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf \
 && rm -rf /var/cache/apk/* \
-&& sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config \
+&& sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config \
 && echo "[supervisord]" > /etc/supervisord.conf \
 && echo "nodaemon=true" >> /etc/supervisord.conf \
 && echo "[unix_http_server]" >> /etc/supervisord.conf \
