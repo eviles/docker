@@ -34,6 +34,8 @@ if [ "$DOMAINS" != "" ]; then
     if [ ! -f "/etc/ssl/certs/dhparam.pem" ]; then
       # If Not Exist Regenerate It
       openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
+      # Fix Config Conflicts
+      sed -i 's/ssl_session_cache/#ssl_session_cache/g' /etc/nginx/nginx.conf
     fi
     certbot renew
   fi
