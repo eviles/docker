@@ -1,0 +1,11 @@
+server {
+        listen 80;
+        server_name default_server;
+
+        location ~ /.well-known {
+                allow all;
+        }
+
+        root /var/lib/nginx/html;
+        index index.html index.htm;
+}

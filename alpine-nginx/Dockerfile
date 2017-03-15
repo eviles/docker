@@ -11,7 +11,7 @@ RUN apk --update add certbot openssl nginx \
 && mkdir /run/nginx \
 && sed -i 's/ssl_session_cache/#ssl_session_cache/g' /etc/nginx/nginx.conf
 
-ADD default.conf /etc/nginx/default.conf.template
+ADD default.conf.template /etc/nginx/default.conf.template
 ADD ssl.conf.template /etc/nginx/ssl.conf.template
 ADD run_nginx.sh /run_nginx.sh
 RUN chmod 755 /run_nginx.sh
