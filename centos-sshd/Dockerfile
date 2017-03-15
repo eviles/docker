@@ -19,8 +19,7 @@ RUN yum -y install openssh openssh-clients openssh-server python-setuptools \
 && echo "[rpcinterface:supervisor]" >> /etc/supervisord.conf \
 && echo "supervisor.rpcinterface_factory=supervisor.rpcinterface:make_main_rpcinterface" >> /etc/supervisord.conf \
 && echo "[program:sshd]" >> /etc/supervisord.conf \
-&& echo "command=/usr/sbin/sshd -D" >> /etc/supervisord.conf \
-&& echo "root:123456" | chpasswd
+&& echo "command=/usr/sbin/sshd -D" >> /etc/supervisord.conf
 
 EXPOSE 22
 
