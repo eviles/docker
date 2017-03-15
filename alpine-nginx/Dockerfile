@@ -5,7 +5,7 @@ RUN apk --update add certbot openssl nginx \
 && echo "[program:nginx]" >> /etc/supervisord.conf \
 && echo "command=/run_nginx.sh" >> /etc/supervisord.conf
 
-ADD default.conf /etc/nginx/conf.d/default.conf
+ADD default.conf /etc/nginx/conf.d/default.conf.new
 ADD run_nginx.sh /run_nginx.sh
 RUN chmod 755 /run_nginx.sh
 
