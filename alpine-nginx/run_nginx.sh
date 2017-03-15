@@ -9,6 +9,8 @@ fi
 if [ "$DOMAINS" != "" ]; then
   IFS=',' read -r -a ADDR <<< "$DOMAINS"
   if [ ! -d "/etc/letsencrypt/live/${ADDR[0]}" ]; then
+    # Setting default.conf for WEBROOT
+    cat /etc/nginx/default.conf.template > /etc/nginx/conf.d/default.conf
     # Start NGINX
     nginx
     # Obtain a Certificate
@@ -21,7 +23,7 @@ if [ "$DOMAINS" != "" ]; then
     
     # Replace default.conf
     SERVER_NAME=`echo $DOMAINS | sed 's/,/ /g'`
-    sed "s/server_name example.com/server_name ${SERVER_NAME}/g" /etc/nginx/conf.d/ssl.conf.template | sed "s/example.com/${ADDR[0]}/g" > /etc/nginx/conf.d/default.conf
+    sed "s/server_name example.com/server_name ${SERVER_NAME}/g" /etc/nginx/ssl.conf.template | sed "s/example.com/${ADDR[0]}/g" > /etc/nginx/conf.d/default.conf
     # Fix Config Conflicts
     sed -i 's/ssl_session_cache/#ssl_session_cache/g' /etc/nginx/nginx.conf
     
