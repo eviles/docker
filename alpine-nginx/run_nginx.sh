@@ -31,6 +31,10 @@ if [ "$DOMAINS" != "" ]; then
     echo 'certbot renew' > /etc/periodic/weekly/certbot-renew.sh
     chmod 755 /etc/periodic/weekly/certbot-renew.sh
   else
+    if [ ! -f "/etc/ssl/certs/dhparam.pem" ]; then
+      # If Not Exist Regenerate It
+      openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
+    fi
     certbot renew
   fi
 fi
