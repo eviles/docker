@@ -1,10 +1,5 @@
 #!/bin/bash
 
-# Fix nginx error on startup...
-if [ ! -d "/run/nginx" ]; then
-  mkdir /run/nginx
-fi
-
 # DOMAINS => example.com,www.example.com
 if [ "$DOMAINS" != "" ]; then
   IFS=',' read -r -a ADDR <<< "$DOMAINS"
@@ -19,9 +14,9 @@ if [ "$DOMAINS" != "" ]; then
     nginx -s quit
     
     # Generate Strong Diffie-Hellman Group
-    openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
-    # Fix Config Conflicts
-    sed -i 's/ssl_session_cache/#ssl_session_cache/g' /etc/nginx/nginx.conf
+    if [ ! -f "/etc/ssl/certs/dhparam.pem" ]; then
+      openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
+    fi
     
     # Replace default.conf
     SERVER_NAME=`echo $DOMAINS | sed 's/,/ /g'`
@@ -34,8 +29,6 @@ if [ "$DOMAINS" != "" ]; then
     if [ ! -f "/etc/ssl/certs/dhparam.pem" ]; then
       # If Not Exist Regenerate It
       openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
-      # Fix Config Conflicts
-      sed -i 's/ssl_session_cache/#ssl_session_cache/g' /etc/nginx/nginx.conf
     fi
     certbot renew
   fi
