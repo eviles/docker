@@ -8,7 +8,6 @@ RUN apk --update add certbot openssl nginx \
 && echo "stdout_logfile_maxbytes=0" >> /etc/supervisord.conf \
 && echo "stderr_logfile=/dev/stderr" >> /etc/supervisord.conf \
 && echo "stderr_logfile_maxbytes=0" >> /etc/supervisord.conf \
-&& mkdir /run/nginx \
 && sed -i 's/ssl_session_cache/#ssl_session_cache/g' /etc/nginx/nginx.conf
 
 ADD default.conf.template /etc/nginx/default.conf.template
