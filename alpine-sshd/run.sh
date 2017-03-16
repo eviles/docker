@@ -6,4 +6,4 @@ if [ "$ROOT_PWD" == "" ]; then
 fi
 echo "root:$ROOT_PWD" | chpasswd
 
-/usr/bin/supervisord
+/usr/bin/supervisord -c /etc/supervisord.conf
