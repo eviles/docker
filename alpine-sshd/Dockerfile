@@ -2,7 +2,8 @@ FROM alpine
 
 ARG GLIBC_VERSION=2.25-r0
 
-RUN apk --update add python py-pip nss-pam-ldapd openssh at bash wget curl tar \
+RUN apk --update add python py-pip openssh at \
+&& apk add --no-cache --virtual=.build-dependencies curl \
 && ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa \
 && ssh-keygen -f /etc/ssh/ssh_host_ecdsa_key -N '' -t ecdsa \
 && ssh-keygen -A \
@@ -11,6 +12,7 @@ RUN apk --update add python py-pip nss-pam-ldapd openssh at bash wget curl tar \
 && curl -o /var/cache/apk/glibc-bin.apk -L "https://github.com/andyshinn/alpine-pkg-glibc/releases/download/${GLIBC_VERSION}/glibc-bin-${GLIBC_VERSION}.apk" \
 && apk add --allow-untrusted /var/cache/apk/glibc-bin.apk \
 && /usr/glibc-compat/sbin/ldconfig /lib /usr/glibc/usr/lib \
+&& apk del .build-dependencies \
 && rm -rf /var/cache/apk/* \
 && pip install --upgrade pip \
 && pip install supervisor \
