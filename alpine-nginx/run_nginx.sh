@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [ ! -d "/run/nginx" ]; then
+  mkdir /run/nginx
+fi
+
 # DOMAINS => example.com,www.example.com
 if [ "$DOMAINS" != "" ]; then
   IFS=',' read -r -a ADDR <<< "$DOMAINS"
@@ -26,8 +30,8 @@ if [ "$DOMAINS" != "" ]; then
     echo 'certbot renew' > /etc/periodic/weekly/certbot-renew.sh
     chmod 755 /etc/periodic/weekly/certbot-renew.sh
   else
+    # If Not Exist Regenerate It
     if [ ! -f "/etc/ssl/certs/dhparam.pem" ]; then
-      # If Not Exist Regenerate It
       openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
     fi
     certbot renew
