@@ -1,7 +1,9 @@
 FROM eviles/alpine-sshd
 
-RUN apk --update add gcc python-dev musl-dev libffi-dev openssl-dev openssl nginx \
+RUN apk --update add openssl nginx \
+&& apk add --no-cache --virtual=.build-dependencies gcc python-dev musl-dev libffi-dev openssl-dev \
 && pip install certbot \
+&& apk del .build-dependencies \
 && rm -rf /var/cache/apk/* \
 && echo "[program:nginx]" >> /etc/supervisord.conf \
 && echo "command=/run_nginx.sh" >> /etc/supervisord.conf \
