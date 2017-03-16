@@ -2,7 +2,7 @@ FROM alpine
 
 ARG GLIBC_VERSION=2.25-r0
 
-RUN apk --update add python py-pip nss-pam-ldapd openssh bash wget curl tar \
+RUN apk --update add python py-pip nss-pam-ldapd openssh at bash wget curl tar \
 && ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa \
 && ssh-keygen -f /etc/ssh/ssh_host_ecdsa_key -N '' -t ecdsa \
 && ssh-keygen -A \
@@ -26,6 +26,10 @@ RUN apk --update add python py-pip nss-pam-ldapd openssh bash wget curl tar \
 && echo "supervisor.rpcinterface_factory=supervisor.rpcinterface:make_main_rpcinterface" >> /etc/supervisord.conf \
 && echo "[program:sshd]" >> /etc/supervisord.conf \
 && echo "command=/usr/sbin/sshd -D" >> /etc/supervisord.conf
+&& echo "[program:atd]" >> /etc/supervisord.conf \
+&& echo "command=/usr/sbin/atd -d" >> /etc/supervisord.conf \
+&& echo "[program:crond]" >> /etc/supervisord.conf \
+&& echo "command=/usr/sbin/crond -f" >> /etc/supervisord.conf
 
 EXPOSE 22
 
