@@ -2,7 +2,7 @@ FROM alpine
 
 ARG GLIBC_VERSION=2.25-r0
 
-RUN apk --update add supervisor nss-pam-ldapd openssh bash wget curl tar \
+RUN apk --update add python py-pip nss-pam-ldapd openssh bash wget curl tar \
 && ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa \
 && ssh-keygen -f /etc/ssh/ssh_host_ecdsa_key -N '' -t ecdsa \
 && ssh-keygen -A \
@@ -12,6 +12,8 @@ RUN apk --update add supervisor nss-pam-ldapd openssh bash wget curl tar \
 && apk add --allow-untrusted /var/cache/apk/glibc-bin.apk \
 && /usr/glibc-compat/sbin/ldconfig /lib /usr/glibc/usr/lib \
 && rm -rf /var/cache/apk/* \
+&& pip install --upgrade pip \
+&& pip install supervisor \
 && sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config \
 && echo "[supervisord]" > /etc/supervisord.conf \
 && echo "nodaemon=true" >> /etc/supervisord.conf \
