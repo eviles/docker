@@ -6,7 +6,7 @@ RUN rpm -Uvh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos
 && yum clean all \
 && rm -rf /var/cache/yum/* \
 && echo "[program:nginx]" >> /etc/supervisord.conf \
-&& echo "command=/run_nginx.sh" >> /etc/supervisord.conf
+&& echo "command=/run_nginx.sh" >> /etc/supervisord.conf \
 && echo "stdout_logfile=/dev/stdout" >> /etc/supervisord.conf \
 && echo "stdout_logfile_maxbytes=0" >> /etc/supervisord.conf \
 && echo "stderr_logfile=/dev/stderr" >> /etc/supervisord.conf \
