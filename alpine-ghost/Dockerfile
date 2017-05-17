@@ -1,6 +1,6 @@
 FROM eviles/alpine-sshd
 
-ARG GHOST_VERSION=0.11.7
+ARG GHOST_VERSION=0.11.9
 ARG GHOST_DIR=/usr/src/ghost
 ARG GHOST_CONTENT=/var/lib/ghost
 
