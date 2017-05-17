@@ -25,4 +25,5 @@ RUN apk --update add nodejs \
 && ln -s $GHOST_DIR/content $GHOST_CONTENT \
 && ln -s $GHOST_DIR/config.js $GHOST_CONTENT/config.js
 
+VOLUME $GHOST_CONTENT
 EXPOSE 2368
