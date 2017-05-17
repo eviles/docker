@@ -17,7 +17,6 @@ RUN apk --update add nodejs \
 && echo "[program:ghost]" >> /etc/supervisord.conf \
 && echo "command=node $GHOST_DIR/index.js" >> /etc/supervisord.conf \
 && echo "directory=$GHOST_DIR" >> /etc/supervisord.conf \
-&& echo "environment=NODE_ENV=\"production\"" >> /etc/supervisord.conf \
 && echo "stdout_logfile=/dev/stdout" >> /etc/supervisord.conf \
 && echo "stdout_logfile_maxbytes=0" >> /etc/supervisord.conf \
 && echo "stderr_logfile=/dev/stderr" >> /etc/supervisord.conf \
