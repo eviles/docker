@@ -1,8 +1,8 @@
 FROM eviles/alpine-sshd
 
 ARG GHOST_VERSION=0.11.9
-ARG GHOST_DIR=/usr/src/ghost
-ARG GHOST_CONTENT=/var/lib/ghost
+ENV GHOST_DIR=/usr/src/ghost
+ENV GHOST_CONTENT=/usr/src/ghost/content
 
 WORKDIR $GHOST_DIR
 
@@ -20,9 +20,7 @@ RUN apk --update add nodejs \
 && echo "stdout_logfile=/dev/stdout" >> /etc/supervisord.conf \
 && echo "stdout_logfile_maxbytes=0" >> /etc/supervisord.conf \
 && echo "stderr_logfile=/dev/stderr" >> /etc/supervisord.conf \
-&& echo "stderr_logfile_maxbytes=0" >> /etc/supervisord.conf \
-&& ln -s $GHOST_DIR/content $GHOST_CONTENT \
-&& ln -s $GHOST_DIR/config.js $GHOST_CONTENT/config.js
+&& echo "stderr_logfile_maxbytes=0" >> /etc/supervisord.conf
 
 VOLUME $GHOST_CONTENT
 EXPOSE 2368
