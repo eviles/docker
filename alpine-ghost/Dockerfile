@@ -7,12 +7,10 @@ ENV GHOST_CONTENT=/usr/src/ghost/content
 WORKDIR $GHOST_DIR
 
 RUN apk --update add nodejs \
-&& apk add --no-cache --virtual=.build-dependencies wget unzip \
 && wget -O ghost.zip "https://github.com/TryGhost/Ghost/releases/download/${GHOST_VERSION}/Ghost-${GHOST_VERSION}.zip" \
 && unzip ghost.zip \
 && npm install --production \
 && rm ghost.zip \
-&& apk del .build-dependencies \
 && rm -rf /var/cache/apk/* \
 && echo "[program:ghost]" >> /etc/supervisord.conf \
 && echo "command=node $GHOST_DIR/index.js" >> /etc/supervisord.conf \
