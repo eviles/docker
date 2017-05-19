@@ -1,6 +1,6 @@
 FROM eviles/alpine-oracle-jdk8
 
-ARG TOMCAT_VERSION=8.0.33
+ARG TOMCAT_VERSION=8.5.15
 
 ENV CATALINA_HOME=/usr/local/tomcat
 ENV CLASSPATH=$CLASSPATH:$CATALINA_HOME/common/lib
