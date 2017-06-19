@@ -6,7 +6,7 @@ ENV GHOST_CONTENT=/usr/src/ghost/content
 
 WORKDIR $GHOST_DIR
 
-RUN apk --update add nodejs \
+RUN apk --update add nodejs nodejs-npm \
 && curl -L "https://github.com/TryGhost/Ghost/releases/download/${GHOST_VERSION}/Ghost-${GHOST_VERSION}.zip" -o ghost.zip\
 && unzip ghost.zip \
 && npm install --production \
