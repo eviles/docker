@@ -1,6 +1,6 @@
 FROM eviles/alpine-sshd
 
-ARG GHOST_VERSION=0.11.9
+ARG GHOST_VERSION=0.11.10
 ENV GHOST_DIR=/usr/src/ghost
 ENV GHOST_CONTENT=/usr/src/ghost/content
 
