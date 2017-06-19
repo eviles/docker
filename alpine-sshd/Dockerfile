@@ -2,7 +2,7 @@ FROM alpine
 
 ARG GLIBC_VERSION=2.25-r0
 
-RUN apk --update add python py-pip openssh at bash curl \
+RUN apk --update add python py-pip openssh at bash curl wget \
 && ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa \
 && ssh-keygen -f /etc/ssh/ssh_host_ecdsa_key -N '' -t ecdsa \
 && ssh-keygen -A \
