@@ -11,11 +11,11 @@ if [ "$DOMAINS" != "" ]; then
     # Setting default.conf for WEBROOT
     cat /etc/nginx/default.conf.template > /etc/nginx/conf.d/default.conf
     # Start NGINX
-    nginx
+    # nginx
     # Obtain a Certificate
     certbot certonly --verbose --noninteractive --quiet --standalone --agree-tos --register-unsafely-without-email --webroot-path /var/lib/nginx/html -d "${DOMAINS}"
     # Stop NGINX
-    nginx -s quit
+    # nginx -s quit
     
     # Generate Strong Diffie-Hellman Group
     if [ ! -f "/etc/ssl/certs/dhparam.pem" ]; then
