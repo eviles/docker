@@ -15,7 +15,7 @@ RUN apk --update add nodejs nodejs-npm make \
 && knex-migrator-migrate --init --mgpath $GHOST_DIR/current \
 && rm -rf /var/cache/apk/* \
 && echo "[program:ghost]" >> /etc/supervisord.conf \
-&& echo "command=node $GHOST_DIR/index.js" >> /etc/supervisord.conf \
+&& echo "command=node $GHOST_DIR/current/index.js" >> /etc/supervisord.conf \
 && echo "directory=$GHOST_DIR" >> /etc/supervisord.conf \
 && echo "stdout_logfile=/dev/stdout" >> /etc/supervisord.conf \
 && echo "stdout_logfile_maxbytes=0" >> /etc/supervisord.conf \
