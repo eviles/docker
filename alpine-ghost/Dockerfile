@@ -1,18 +1,18 @@
 FROM eviles/alpine-sshd
 
-ARG GHOST_VERSION=1.20.3
+ENV NODE_ENV=production
 ENV GHOST_DIR=/usr/src/ghost
 ENV GHOST_CONTENT=/usr/src/ghost/content
+ENV PATH=$PATH:$GHOST_DIR/current/node_modules/knex-migrator/bin
 
 WORKDIR $GHOST_DIR
 
 RUN apk --update add nodejs nodejs-npm make \
-&& curl -L "https://github.com/TryGhost/Ghost/releases/download/${GHOST_VERSION}/Ghost-${GHOST_VERSION}.zip" -o ghost.zip \
-&& unzip ghost.zip \
-&& npm install --unsafe-perm -g knex-migrator \
-&& npm install --production \
-&& knex-migrator init \
-&& rm ghost.zip \
+&& npm install --unsafe-perm -g ghost-cli \
+&& ghost install --db sqlite3 --no-prompt --no-stack --no-setup --dir "$GHOST_DIR" \
+&& ghost config --ip 0.0.0.0 --port 2368 --no-prompt --db sqlite3 --url http://localhost:2368 --dbpath "$GHOST_CONTENT/data/ghost.db" \
+&& ghost config paths.contentPath "$GHOST_CONTENT" \
+&& knex-migrator-migrate --init --mgpath $GHOST_DIR/current \
 && rm -rf /var/cache/apk/* \
 && echo "[program:ghost]" >> /etc/supervisord.conf \
 && echo "command=node $GHOST_DIR/index.js" >> /etc/supervisord.conf \
