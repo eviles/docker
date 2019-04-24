@@ -11,6 +11,7 @@ ADD mod_jk.conf /etc/httpd/conf.d/mod_jk.conf
 RUN chmod 755 /usr/lib64/httpd/modules/mod_jk.so \
 && sed -i '/^#ServerName/cServerName localhost' /etc/httpd/conf/httpd.conf \
 && sed -i 's/DirectoryIndex index.html/DirectoryIndex index.html index.htm index.jsp/g' /etc/httpd/conf/httpd.conf \
+&& sed -i 's/^EnableSendfile on/EnableSendfile off/g' /etc/httpd/conf/httpd.conf \
 && echo "[program:httpd]" >> /etc/supervisord.conf \
 && echo "command=/usr/sbin/httpd -D FOREGROUND" >> /etc/supervisord.conf
 
